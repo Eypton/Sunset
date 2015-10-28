@@ -1,5 +1,6 @@
 package stanleygriggs.com.sunset;
 
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,6 +26,24 @@ public class SunsetFragment extends Fragment {
         mSunView = view.findViewById(R.id.sun);
         mSkyView = view.findViewById(R.id.sky);
 
+        mSceneView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                startAnimation();
+            }
+        });
+
         return view;
+    }
+
+    private void startAnimation() {
+        float sunYStart = mSunView.getTop();
+        float sunYEnd = mSkyView.getHeight();
+
+        ObjectAnimator heightAnimator = ObjectAnimator
+                .ofFloat(mSunView, "y", sunYStart, sunYEnd)
+                .setDuration(3000);
+
+        heightAnimator.start();
     }
 }
